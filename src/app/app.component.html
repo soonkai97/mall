@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/" routerLinkActive="active">SK Mall</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+              <img src="../assets/house-door.svg" alt="Home">
+              <a class="nav-link" routerLink="/" routerLinkActive="active" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Home</a>
+          </li>
+          <li class="nav-item">
+              <img src="../assets/telephone-fill.svg" alt="Contact">
+              <a class="nav-link" routerLink="contactus" routerLinkActive="active" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Contact Us</a>
+          </li>
+          <li class="nav-item">
+              <img src="../assets/question-circle-fill.svg" alt="About">
+              <a class="nav-link" routerLink="aboutus" routerLinkActive="active" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">About Us</a>
+          </li>
+          <ul class="navbar-nav mr-auto" *ngIf="auth.user | async as user; else showLogin">
+          <li class="nav-item">
+              <img src="../assets/person-circle.svg" alt="Account">
+              <a class="nav-link" routerLink="profile" routerLinkActive="active" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Profile</a>
+          </li>
+          <li class="nav-item">
+              <img src="../assets/door-open.svg" alt="Logout">
+              <a class="nav-link" (click)="logout()" style="cursor: pointer;" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Logout</a>
+          </li>
+      </ul>
+          <ng-template #showLogin>
+              <li class="nav-item">
+              <img src="../assets/person-circle.svg" alt="Profile">
+              <a class="nav-link" routerLink="account" routerLinkActive="active" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">SignIn / Register</a>
+          </li>
+      </ng-template>
+      </ul>
+  </div>
+</nav>
+<div class="container">
+
+  <router-outlet></router-outlet>
+</div>
+<div class="footer">
+<footer><b>&copy;&nbsp;Powered By SK Mall 2021, Developed by Chian Soon Kai</b></footer></div>

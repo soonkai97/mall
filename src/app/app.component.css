@@ -1,0 +1,19 @@
+footer {
+    bottom: 0;
+    position: fixed;
+    background-color: white;
+    z-index: 1;
+}
+
+li {
+    display: flex;
+    margin-left:15px;
+}
+
+a {
+    margin-left:8px;
+}
+
+a:hover {
+    background-color: lightcyan;
+}

@@ -1,0 +1,85 @@
+<div class="container-fluid">
+<form #userForm ="ngForm" novalidate>
+    <!-- {{userForm.value | json}}
+    <hr/>
+    {{userModel | json}} -->
+
+    <!-- {{userForm.form.valid}} -->
+    <div class="formList" (keydown)="$event.keyCode === 13 ? $event.preventDefault() : ''">
+        <div class="form-group">
+            <label for="firstName">Name</label>
+            <br>
+            <input [ngModel]="user?.firstName" attr.name="firstName" name="firstName" #firstName="ngModel" id="firstName" type="text" class="form-control" minlength="3" required >
+            <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                <div *ngIf="firstName.errors?.required"><small>Name is required</small></div>
+                <div *ngIf="firstName.errors?.minlength"><small>Name should be minimum {{firstName.errors?.minlength.requiredLength}} character</small></div>
+                <!-- <div *ngIf="firstName.errors?.pattern"><small>Name does not match the pattern</small></div> -->
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <br>
+            <input [ngModel]="user?.phone" attr.name="phone" name="phone" #phone="ngModel" type="tel" class="form-control" pattern="^[0-9]*$" required>
+            <div class="alert alert-danger" *ngIf="phone.touched && !phone.valid">
+                <div *ngIf="phone.errors?.required"><small>Phone number is required</small></div>
+                <div *ngIf="phone.errors?.pattern"><small>An invalid phone number</small></div>
+            </div>
+        </div>
+        <!-- {{phone.valid}} -->
+
+        <div class="form-group">
+            <label for="comment">Comment</label> 
+            <br>
+            <textarea [ngModel]="user?.comment" attr.name="comment" name="comment" #comment="ngModel" id="comment" cols="30" rows="10" class="form-control" required></textarea>
+            <div class="alert alert-danger" *ngIf="comment.touched && !comment.valid">Comment is required</div>
+        </div> 
+        
+        <div class="form-group">
+            <select [ngModel]="user?.topic" attr.name="topic" name="topic" #topic="ngModel" class="custom-select" required>
+                <option selected>I am interested in</option>
+                <option *ngFor="let topic of topics">{{topic}}</option>
+            </select>
+            <div class="alert alert-danger" *ngIf="topic.touched && !topic.valid">Topic is required</div>
+            <br>
+
+            <label>Time Preference</label>
+            <div for="form-check">
+                <input [ngModel]="user?.timePreference" attr.name="timePreference" name="timePreference" #timePreference ="ngModel" class="form-check-input" type="radio" value="morning" required>
+                <label class="form-check-label">Morning(9AM -12PM)</label>
+            </div>
+            <div for="form-check">
+                <input [ngModel]="user?.timePreference" attr.name="timePreference" name="timePreference" #timePreference ="ngModel" class="form-check-input" type="radio" value="evening" required>
+                <label class="form-check-label">Evening(5PM -8PM)</label>
+            </div>
+            <div class="alert alert-danger" *ngIf="timePreference.touched && !timePreference.valid">Time preference is required</div>
+
+            <!-- {{timePreference.valid}} -->
+
+            <div for="form-check">
+                <input ngModel name="subsribe" class="form-check-input" type="checkbox">
+                <label class="form-check-label">Send me promotional offers</label>
+            </div>
+        </div>
+
+        <!-- <div ngModelGroup="address"> -->
+            <div class="form-group">
+                <label>Street</label>
+                <input [ngModel]="user?.street" attr.name="street" name="street" #street="ngModel" class="form-control" type="text" class="form-control" required>
+                <div class="alert alert-danger" *ngIf="street.touched && !street.valid">street is required</div>
+            </div>
+
+            <div class="form-group">
+                <label>City</label>
+                <input [ngModel]="user?.city" attr.name="city" name="city" #city="ngModel" class="form-control" type="text" class="form-control" required>
+                <div class="alert alert-danger" *ngIf="city.touched && !city.valid">city is required</div>
+            </div>
+        <!-- </div> -->
+
+        <!-- <button [disabled]="userForm.form.invalid" class="btn btn-primary" type="submit" name="submit" (click)="onSubmit()">Submit</button> -->
+        <button [disabled]="userForm.form.invalid" class="btn btn-primary" type="button" name="submit" (click)="onSubmit(userForm)">Submit</button>
+        <!-- <button class="btn btn-primary" type="submit" name="submit">Submit</button> -->
+        <button class="btn btn-primary" type="submit" name="continue" (click)="continueClick(userForm.form)">Continue</button>
+        </div>
+</form>
+</div>
+ 
