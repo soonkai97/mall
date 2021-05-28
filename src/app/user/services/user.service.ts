@@ -11,6 +11,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 export class UserService {
   userData: Observable<firebase.default.User | null>;
   private userList: AngularFireList<any>;
+  
   constructor(public router: Router, private user: User, private angularFireAuth: AngularFireAuth, private firebase: AngularFireDatabase) { 
     this.userData = angularFireAuth.authState;
     this.userList = this.firebase.list('users');
