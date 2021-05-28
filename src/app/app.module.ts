@@ -20,6 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule} from '@angular/forms';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ProfileComponent } from './profile/profile.component';
+import { User, UserService } from './user/services/user.service';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 @NgModule({
   declarations: [	
@@ -44,8 +46,9 @@ import { ProfileComponent } from './profile/profile.component';
     AngularFirestoreModule,
     FormsModule,
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
   ],
-  providers: [],
+  providers: [User, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

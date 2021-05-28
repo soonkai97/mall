@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 
 @Injectable({
@@ -9,15 +10,17 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   userData: Observable<firebase.default.User | null>;
-  constructor(public router: Router, private user: User, private angularFireAuth: AngularFireAuth) { 
+  private userList: AngularFireList<any>;
+  constructor(public router: Router, private user: User, private angularFireAuth: AngularFireAuth, private firebase: AngularFireDatabase) { 
     this.userData = angularFireAuth.authState;
+    this.userList = this.firebase.list('users');
   }
 
   //sign up
   SignUp(email: string, password: string) {
     console.log(email);
     this.angularFireAuth.createUserWithEmailAndPassword(email, password).then(res => {
-      window.alert('Hi' + this.user.email + 'You are successfully signed up!');
+      window.alert('Hi, ' + email + ' , you are successfully signed up!');
       this.router.navigateByUrl('');
 
     })
@@ -30,7 +33,7 @@ export class UserService {
   //sign in
   SignIn(email: string, password: string) {
     this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
-      window.alert('Hi' + this.user.email + 'You are successfully logged in!');
+      window.alert('Hi, ' + email + ' , you are successfully logged in!');
       this.router.navigateByUrl('');
 
     })
@@ -44,12 +47,36 @@ export class UserService {
   SignOut() {
     this.angularFireAuth.signOut();
   }
+
+  //getUserList
+  getUsersFromFirebase() {
+    return this.userList;
+  }
+
+  addUserToFirebase(user: UserProfile) {
+    this.userList.push(user);
+  }
+
+  updateUserOnFirebase(user: UserProfile) {
+    let $key = user.$key;
+    this.userList.update($key, user);
+  }
+
+  deleteUserFromFirebase($key: string) {
+    this.userList.remove($key);
+  }
 }
 
 export class User {
   email: string;
   password: string;
+  
+}
+
+export class UserProfile {
+  $key: string;
   name: string;
   gender: string;
-  phone: string;
+  phone: number;
+  address: string
 }
